@@ -160,7 +160,7 @@
    <item>
     <widget class="QStackedWidget" name="pages">
      <widget class="UiProbeToGene" name="page"/>
-     <widget class="QWidget" name="page_2"/>
+     <widget class="UiPhenotype" name="page_2"/>
     </widget>
    </item>
   </layout>
@@ -176,6 +176,12 @@
    <class>NavItem</class>
    <extends>QToolButton</extends>
    <header>src/fend/uicom/navitem.h</header>
+  </customwidget>
+  <customwidget>
+   <class>UiPhenotype</class>
+   <extends>QWidget</extends>
+   <header>src/fend/uiphenotype/uiphenotype.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

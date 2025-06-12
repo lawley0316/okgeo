@@ -121,7 +121,7 @@ void UiProbeToGene::onBrowseAnnoFileClicked()
 
 void UiProbeToGene::onBrowseOutfileClicked()
 {
-    QString path = QFileDialog::getSaveFileName(this, tr("Please Choose"), previousDir + "/expressions.txt", tr("Text files (*.txt)"));
+    QString path = QFileDialog::getSaveFileName(this, tr("Please Choose"), previousDir + "/expressions.txt", tr("Text file (*.txt)"));
     if (path.isEmpty()) return;
     previousDir = QFileInfo(path).dir().path();
     ui->outfile->setText(path);

@@ -32,8 +32,8 @@ UiMain::UiMain(QWidget *parent)
     connect(ui->probeToGene, &QToolButton::clicked, this, &UiMain::onProbeToGeneClicked);
 
     // parse
-    ui->parsePheno->setDefaultIcon(QIcon(":/static/patient-dark.png"));
-    ui->parsePheno->setActiveIcon(QIcon(":/static/patient-light.png"));
+    ui->parsePheno->setDefaultIcon(QIcon(":/static/phenotype-dark.png"));
+    ui->parsePheno->setActiveIcon(QIcon(":/static/phenotype-light.png"));
     ui->parsePheno->setDefaultTextColor(QColor("#666666"));
     ui->parsePheno->setActiveTextColor(QColor("#455DD0"));
     ui->parsePheno->setIconSize(QSize(25, 25));

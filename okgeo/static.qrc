@@ -2,8 +2,6 @@
     <qresource prefix="/">
         <file>static/logo.png</file>
         <file>static/base.qss</file>
-        <file>static/patient-dark.png</file>
-        <file>static/patient-light.png</file>
         <file>static/logo.ico</file>
         <file>static/close-1.png</file>
         <file>static/close-2.png</file>
@@ -14,5 +12,7 @@
         <file>static/about-dark.png</file>
         <file>static/about-light.png</file>
         <file>static/logo.icns</file>
+        <file>static/phenotype-dark.png</file>
+        <file>static/phenotype-light.png</file>
     </qresource>
 </RCC>
