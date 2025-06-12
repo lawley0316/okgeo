@@ -1,0 +1,237 @@
+/************************************************************** QPushButton Start **************************************************************/
+QPushButton[ok-class="button"] {
+}
+
+QPushButton[ok-type="primary"] {
+    border: none;
+    background-color: #455DD0;
+    color: #FFFFFF;
+}
+
+QPushButton[ok-type="primary"]:hover {
+    background-color: #6979F0;
+}
+
+QPushButton[ok-type="primary"]:disabled {
+    background-color: #6979f0;
+}
+
+QPushButton[ok-type="secondary"] {
+    border: 1px solid #999999;
+    background-color: transparent;
+    color: #666666;
+}
+
+QPushButton[ok-type="secondary"]:hover {
+    color: #455DD0;
+    border: 1px solid #455DD0;
+}
+
+QPushButton[ok-size="small"] {
+    min-width: 50px;
+    font-size: 14px;
+    border-radius: 4px;
+    padding: 2px 4px;
+}
+
+QPushButton[ok-size="middle"] {
+    min-width: 60px;
+    font-size: 16px;
+    border-radius: 6px;
+    padding: 4px 8px;
+}
+
+QPushButton[ok-size="large"] {
+    min-width: 70px;
+    font-size: 18px;
+    border-radius: 8px;
+    padding: 8px 16px;
+}
+/************************************************************** QPushButton End **************************************************************/
+
+
+/************************************************************** QLineEdit Start **************************************************************/
+QLineEdit {
+    color: #333333;
+    font-size: 14px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    border: 1px solid #DEE2E6;
+    background-color: #FFFFFF;
+}
+
+QLineEdit:disabled {
+    color: #999999;
+    background-color: #F3F3F3;
+    border: 1px solid #E5E5E5;
+}
+/*************************************************************** QLineEdit End ***************************************************************/
+
+
+/*************************************************************** QSpinBox Start ***************************************************************/
+QSpinBox {
+    color: #333333;
+    font-size: 14px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    border: 1px solid #DEE2E6;
+    background-color: #FFFFFF;
+}
+
+QSpinBox:hover {
+    border: 1px solid #455DD0;
+}
+
+QSpinBox:focus {
+    border: 1px solid #455DD0;
+}
+
+QSpinBox:disabled {
+    color: #999999;
+    background-color: #F3F3F3;
+    border: 1px solid #E5E5E5;
+}
+
+QSpinBox::up-button {
+    subcontrol-origin: border;
+    subcontrol-position: top right;
+    border-left: 1px solid #DEE2E6;
+    border-bottom: 1px solid #DEE2E6;
+    border-top-right-radius: 4px;
+    width: 16px;
+}
+
+QSpinBox::up-button:hover {
+    border-left: 1px solid #455DD0;
+    background-color: #455DD0;
+}
+
+QSpinBox::down-button {
+    subcontrol-origin: border;
+    subcontrol-position: bottom right;
+    border-left: 1px solid #DEE2E6;
+    border-bottom-right-radius: 4px;
+    width: 16px;
+}
+
+QSpinBox::down-button:hover {
+    border-left: 1px solid #455DD0;
+    background-color: #455DD0;
+}
+
+QSpinBox::up-arrow {
+    width: 8px;
+    height: 8px;
+    image: url(:/static/up-1.png);
+}
+
+QSpinBox::up-arrow:hover {
+    image: url(:/static/up-2.png);
+}
+
+QSpinBox::down-arrow {
+    width: 8px;
+    height: 8px;
+    image: url(:/static/down-1.png);
+}
+
+QSpinBox::down-arrow:hover {
+    image: url(:/static/down-2.png);
+}
+/**************************************************************** QSpinBox End ****************************************************************/
+
+
+/*************************************************************** QComboBox Start **************************************************************/
+QComboBox {
+    color: #333333;
+    font-size: 14px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    border: 1px solid #DEE2E6;
+    background-color: #FFFFFF;
+    selection-color: #FFFFFF;
+    selection-background-color: #455DD0;
+}
+
+QComboBox::hover {
+    border: 1px solid #455DD0;
+}
+
+QComboBox::on {
+    border: 1px solid #455DD0;
+}
+
+QComboBox::disabled {
+    color: #999999;
+    background-color: #F3F3F3;
+    border: 1px solid #E5E5E5;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 16px;
+    border: none;
+    background-color: transparent;
+}
+
+QComboBox::down-arrow {
+    width: 8px;
+    height: 8px;
+    image: url(:/static/down-1.png);
+}
+
+QComboBox QAbstractItemView {
+    background-color: #FFFFFF;
+    border: 1px solid #DEE2E6;
+}
+/**************************************************************** QComboBox End ***************************************************************/
+
+
+/************************************************************** QProgressBar Start ************************************************************/
+QProgressBar {
+    border-radius: 2px;
+    border: 1px solid #E5E5E5;
+}
+QProgressBar::chunk {
+    border-radius: 2px;
+    background-color: #455DD0;
+}
+/*************************************************************** QProgressBar End *************************************************************/
+
+
+/**************************************************************** Loading Start **************************************************************/
+Loading > QFrame {
+    border: none;
+    border-radius: 12px;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+Loading > QFrame > #title {
+    color: #FFFFFF;
+    font-size: 12px;
+}
+/***************************************************************** Loading End ***************************************************************/
+
+
+/***************************************************************** Dialog Start ***************************************************************/
+Dialog > QFrame {
+    border: none;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+}
+
+Dialog > QFrame > #titleLabel {
+    color: #333333;
+    font-size: 16px;
+}
+
+Dialog > QFrame > #closeButton {
+    border: none;
+}
+
+Dialog > QFrame > #contentLabel {
+    font-size: 14px;
+    color: #666666;
+}
+/****************************************************************** Dialog End ****************************************************************/

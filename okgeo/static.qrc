@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>static/logo.png</file>
+        <file>static/base.qss</file>
+        <file>static/patient-dark.png</file>
+        <file>static/patient-light.png</file>
+        <file>static/logo.ico</file>
+        <file>static/close-1.png</file>
+        <file>static/close-2.png</file>
+        <file>static/map-dark.png</file>
+        <file>static/map-light.png</file>
+        <file>static/close-3.png</file>
+        <file>static/ui.qss</file>
+        <file>static/about-dark.png</file>
+        <file>static/about-light.png</file>
+        <file>static/logo.icns</file>
+    </qresource>
+</RCC>
