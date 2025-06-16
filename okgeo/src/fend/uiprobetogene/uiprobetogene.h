@@ -16,18 +16,15 @@ class UiProbeToGene : public QWidget
 public:
     explicit UiProbeToGene(QWidget *parent = nullptr);
     ~UiProbeToGene();
-    bool isValid() const;
-    QJsonObject getParams() const;
-    void updateUi();
-    void disableUi();
-    void enableUi();
+    bool IsValid() const;
+    QJsonObject GetParams() const;
+    void UpdateUi();
 
 public slots:
-    void onBrowseProbeFileClicked();
-    void onBrowseAnnoFileClicked();
-    void onBrowseOutfileClicked();
-    void onConvertClicked();
-    void onConverted();
+    void BrowseProbeFile();
+    void BrowseAnnoFile();
+    void BrowseOutfile();
+    void Convert();
 
 private:
     Ui::UiProbeToGene *ui;

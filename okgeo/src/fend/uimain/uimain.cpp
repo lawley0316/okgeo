@@ -1,13 +1,16 @@
 #include "uimain.h"
 #include "ui_uimain.h"
 #include "src/fend/uicom/dialog.h"
-#include "src/middle/signalmanager.h"
 #include "src/middle/manager.h"
+#include "src/middle/signals.h"
+
+#include <QTimer>
+#include <QDesktopServices>
 
 UiMain::UiMain(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::UiMain)
-    , loading(new Loading(this))
+    , mLoading(new Loading(this))
 {
     ui->setupUi(this);
     setWindowTitle("OkGEO");
@@ -29,18 +32,18 @@ UiMain::UiMain(QWidget *parent)
         "Given a probe annotation file, the column containing gene symbols, "
         "and the method for merging probes, convert probe expression to gene expression."
     ));
-    connect(ui->probeToGene, &QToolButton::clicked, this, &UiMain::onProbeToGeneClicked);
+    connect(ui->probeToGene, &QToolButton::clicked, this, &UiMain::ConvertProbeToGene);
 
-    // parse
-    ui->parsePheno->setDefaultIcon(QIcon(":/static/phenotype-dark.png"));
-    ui->parsePheno->setActiveIcon(QIcon(":/static/phenotype-light.png"));
-    ui->parsePheno->setDefaultTextColor(QColor("#666666"));
-    ui->parsePheno->setActiveTextColor(QColor("#455DD0"));
-    ui->parsePheno->setIconSize(QSize(25, 25));
-    ui->parsePheno->setText(tr("Phenotype"));
-    ui->parsePheno->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    ui->parsePheno->setToolTip(tr("Parse the phenotype data from the Series Matrix file."));
-    connect(ui->parsePheno, &QToolButton::clicked, this, &UiMain::onParsePhenoClicked);
+    // phenotype
+    ui->phenotype->setDefaultIcon(QIcon(":/static/phenotype-dark.png"));
+    ui->phenotype->setActiveIcon(QIcon(":/static/phenotype-light.png"));
+    ui->phenotype->setDefaultTextColor(QColor("#666666"));
+    ui->phenotype->setActiveTextColor(QColor("#455DD0"));
+    ui->phenotype->setIconSize(QSize(25, 25));
+    ui->phenotype->setText(tr("Phenotype"));
+    ui->phenotype->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    ui->phenotype->setToolTip(tr("Parse the phenotype data from the Series Matrix file."));
+    connect(ui->phenotype, &QToolButton::clicked, this, &UiMain::ParsePhenotype);
 
     // about
     ui->about->setDefaultIcon(QIcon(":/static/about-dark.png"));
@@ -52,47 +55,64 @@ UiMain::UiMain(QWidget *parent)
     ui->pages->setCurrentIndex(0);
 
     // signals
-    connect(MANAGER->signalManager, &SignalManager::loading, this, &UiMain::onLoading);
-    connect(MANAGER->signalManager, &SignalManager::converted, this, &UiMain::onConverted);
-    connect(MANAGER->signalManager, &SignalManager::errorOccurred, this, &UiMain::onErrorOccurred);
+    connect(MANAGER->mSignals, &Signals::Loading, mLoading, &QDialog::exec);
+    connect(MANAGER->mSignals, &Signals::ProbeToGeneConverted, this, &UiMain::OpenResultFile);
+    connect(MANAGER->mSignals, &Signals::PhenotypeParsed, this, &UiMain::OpenResultFile);
+    connect(MANAGER->mSignals, &Signals::ErrorOccurred, this, &UiMain::ShowError);
 }
 
 UiMain::~UiMain()
 {
     delete ui;
-    delete loading;
+    delete mLoading;
 }
 
-void UiMain::onLoading()
-{
-    loading->exec();
-}
-
-void UiMain::onConverted()
-{
-    loading->close();
-}
-
-void UiMain::onErrorOccurred(const QString& detail)
-{
-    loading->close();
-    Dialog dialog(this);
-    dialog.setTitle(tr("Error occurred."));
-    dialog.setContent(detail);
-    dialog.addOkButton();
-    dialog.exec();
-}
-
-void UiMain::onProbeToGeneClicked()
+void UiMain::ConvertProbeToGene()
 {
     ui->probeToGene->activate();
-    ui->parsePheno->deactivate();
+    ui->phenotype->deactivate();
     ui->pages->setCurrentIndex(0);
 }
 
-void UiMain::onParsePhenoClicked()
+void UiMain::ParsePhenotype()
 {
     ui->probeToGene->deactivate();
-    ui->parsePheno->activate();
+    ui->phenotype->activate();
     ui->pages->setCurrentIndex(1);
+}
+
+void UiMain::OpenResultFile(const QString& path)
+{
+    mLoading->accept();
+    QTimer::singleShot(
+        0, this,
+        [=]()
+        {
+            Dialog dialog(this);
+            dialog.setTitle(tr("Finished."));
+            dialog.setContent(tr("Do you want to open the result file?"));
+            dialog.addOkButton();
+            dialog.addCancelButton();
+            if (dialog.exec() == Dialog::Accepted)
+            {
+                QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+            }
+        }
+    );
+}
+
+void UiMain::ShowError(int api, const QJsonValue& params, const QString& message)
+{
+    mLoading->accept();
+    QTimer::singleShot(
+        0, this,
+        [=]()
+        {
+            Dialog dialog(this);
+            dialog.setTitle(tr("Error occurred."));
+            dialog.setContent(message);
+            dialog.addOkButton();
+            dialog.exec();
+        }
+    );
 }

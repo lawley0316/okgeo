@@ -1,5 +1,5 @@
 #include "manager.h"
-#include "signalmanager.h""
+#include "signals.h"
 #include "src/bend/gateway.h"
 
 #include <QFile>
@@ -10,16 +10,16 @@ Q_GLOBAL_STATIC(Manager, ins)
 
 Manager::Manager(QObject *parent)
     : QObject{parent}
-    , gateway(new Gateway(this))
-    , signalManager(new SignalManager(this))
+    , mGateway(new Gateway(this))
+    , mSignals(new Signals(this))
 {}
 
-Manager* Manager::getInstance()
+Manager* Manager::GetInstance()
 {
     return ins();
 }
 
-void Manager::init()
+void Manager::Initialize()
 {
     // base
     QFile baseQss(":/static/base.qss");

@@ -1,24 +1,24 @@
 #ifndef MANAGER_H
 #define MANAGER_H
 
-#define MANAGER Manager::getInstance()
+#define MANAGER Manager::GetInstance()
 
 #include <QObject>
 
 class Gateway;
-class SignalManager;
+class Signals;
 
 class Manager : public QObject
 {
     Q_OBJECT
 public:
     explicit Manager(QObject *parent = nullptr);
-    static Manager* getInstance();
-    void init();
+    static Manager* GetInstance();
+    void Initialize();
 
 public:
-    Gateway* gateway;
-    SignalManager* signalManager;
+    Gateway* mGateway;
+    Signals* mSignals;
 };
 
 #endif // MANAGER_H

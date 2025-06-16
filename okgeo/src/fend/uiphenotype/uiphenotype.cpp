@@ -1,23 +1,29 @@
 #include "uiphenotype.h"
 #include "ui_uiphenotype.h"
+#include "src/consts/api.h"
+#include "src/middle/signals.h"
+#include "src/bend/gateway.h"
+#include "src/middle/manager.h"
 
 #include <QDir>
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QJsonObject>
+#include <QTimer>
+#include <QDesktopServices>
 
 UiPhenotype::UiPhenotype(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::UiPhenotype)
-    , previousDir(QDir::homePath())
+    , mPreviousDir(QDir::homePath())
 {
     ui->setupUi(this);
     ui->seriesMatrixFile->setEnabled(false);
     ui->outfile->setEnabled(false);
     ui->parse->setEnabled(false);
-    connect(ui->browseSeriesMatrixFile, &QPushButton::clicked, this, &UiPhenotype::onBrowseSeriesMatrixFileClicked);
-    connect(ui->browseOutfile, &QPushButton::clicked, this, &UiPhenotype::onBrowseOutfileClicked);
-    connect(ui->parse, &QPushButton::clicked, this, &UiPhenotype::onParseClicked);
+    connect(ui->browseSeriesMatrixFile, &QPushButton::clicked, this, &UiPhenotype::BrowseSeriesMatrixFile);
+    connect(ui->browseOutfile, &QPushButton::clicked, this, &UiPhenotype::BrowseOutfile);
+    connect(ui->parse, &QPushButton::clicked, this, &UiPhenotype::Parse);
 }
 
 UiPhenotype::~UiPhenotype()
@@ -25,12 +31,12 @@ UiPhenotype::~UiPhenotype()
     delete ui;
 }
 
-bool UiPhenotype::isValid() const
+bool UiPhenotype::IsValid() const
 {
     return ! (ui->seriesMatrixFile->text().isEmpty() || ui->outfile->text().isEmpty());
 }
 
-QJsonObject UiPhenotype::getParams() const
+QJsonObject UiPhenotype::GetParams() const
 {
     QJsonObject params;
     params["seriesMatrixFile"] = ui->seriesMatrixFile->text();
@@ -38,30 +44,31 @@ QJsonObject UiPhenotype::getParams() const
     return params;
 }
 
-void UiPhenotype::updateUi()
+void UiPhenotype::UpdateUi()
 {
-    ui->parse->setEnabled(isValid());
+    ui->parse->setEnabled(IsValid());
 }
 
-void UiPhenotype::onBrowseSeriesMatrixFileClicked()
+void UiPhenotype::BrowseSeriesMatrixFile()
 {
-    QString path = QFileDialog::getOpenFileName(this, tr("Please Choose"), previousDir, tr("Series Matrix File (*.txt)"));
+    QString path = QFileDialog::getOpenFileName(this, tr("Please Choose"), mPreviousDir, tr("Series Matrix File (*.txt)"));
     if (path.isEmpty()) return;
-    previousDir = QFileInfo(path).dir().path();
+    mPreviousDir = QFileInfo(path).dir().path();
     ui->seriesMatrixFile->setText(path);
-    updateUi();
+    UpdateUi();
 }
 
-void UiPhenotype::onBrowseOutfileClicked()
+void UiPhenotype::BrowseOutfile()
 {
-    QString path = QFileDialog::getSaveFileName(this, tr("Please Choose"), previousDir + "/phenotype.txt", tr("Text File (*.txt)"));
+    QString path = QFileDialog::getSaveFileName(this, tr("Please Choose"), mPreviousDir + "/phenotype.txt", tr("Text File (*.txt)"));
     if (path.isEmpty()) return;
-    previousDir = QFileInfo(path).dir().path();
+    mPreviousDir = QFileInfo(path).dir().path();
     ui->outfile->setText(path);
-    updateUi();
+    UpdateUi();
 }
 
-void UiPhenotype::onParseClicked()
+void UiPhenotype::Parse()
 {
-    qDebug() << "parse";
+    MANAGER->mGateway->Send(API::PHENOTYPE::PARSE, GetParams());
+    emit MANAGER->mSignals->Loading();
 }

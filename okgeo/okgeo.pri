@@ -9,11 +9,12 @@ HEADERS += \
     $$PWD/src/fend/uiphenotype/uiphenotype.h \
     $$PWD/src/fend/uiprobetogene/uiprobetogene.h \
     $$PWD/src/middle/manager.h \
-    $$PWD/src/middle/signalmanager.h \
+    $$PWD/src/middle/signals.h \
     $$PWD/src/utils/error.h \
     $$PWD/src/utils/helpers.h \
     $$PWD/src/utils/rapidcsv.h \
-    $$PWD/src/fend/uimain/uimain.h
+    $$PWD/src/fend/uimain/uimain.h \
+    $$PWD/src/utils/str.h
 
 SOURCES += \
     $$PWD/src/fend/uicom/dialog.cpp \
@@ -23,7 +24,7 @@ SOURCES += \
     $$PWD/src/fend/uiphenotype/uiphenotype.cpp \
     $$PWD/src/fend/uiprobetogene/uiprobetogene.cpp \
     $$PWD/src/middle/manager.cpp \
-    $$PWD/src/middle/signalmanager.cpp \
+    $$PWD/src/middle/signals.cpp \
     $$PWD/src/utils/helpers.cpp \
     $$PWD/src/fend/uimain/uimain.cpp
 

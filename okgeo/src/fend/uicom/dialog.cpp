@@ -32,6 +32,7 @@ void Dialog::setContent(const QString& content)
 QPushButton* Dialog::addOkButton(const QString& text)
 {
     QPushButton* button = ui->buttonBox->addButton(text, QDialogButtonBox::YesRole);
+    connect(button, &QPushButton::clicked, this, &Dialog::accept);
     button->setProperty("ok-class", "button");
     button->setProperty("ok-type", "primary");
     button->setProperty("ok-size", "small");
@@ -43,6 +44,7 @@ QPushButton* Dialog::addOkButton(const QString& text)
 QPushButton* Dialog::addCancelButton(const QString& text)
 {
     QPushButton* button = ui->buttonBox->addButton(text, QDialogButtonBox::NoRole);
+    connect(button, &QPushButton::clicked, this, &Dialog::reject);
     button->setProperty("ok-class", "button");
     button->setProperty("ok-type", "secondary");
     button->setProperty("ok-size", "small");

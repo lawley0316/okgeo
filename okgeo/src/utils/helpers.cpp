@@ -1,8 +1,10 @@
 #include "rapidcsv.h"
 #include "helpers.h"
+#include "str.h"
 
 #include <fstream>
 #include <algorithm>
+#include <iostream>
 
 void ProbeExprHelper::parse(const std::string& path, Ids& probes, Ids& samples, Exprs& probeExprs)
 {
@@ -200,5 +202,110 @@ void GeneExprHelper::min(ExprPtrs& probeExprPtrs, Expr& geneExpr)
             }
         }
         geneExpr.push_back(hasnan ? std::nan("") : gev);
+    }
+}
+
+void PhenotypeHelper::Parse(const std::string& file, Phenotype& phenotype)
+{
+    std::ifstream in(file);
+    if (! in)
+    {
+        throw OsError(file + ": failed to open file");
+    }
+    Phenotype hPhenotype;  // horizontal phenotype data
+    std::string line;
+    while (std::getline(in, line))
+    {
+        if (line.size() < 9)
+        {
+            continue;
+        }
+        if (str::StartsWith(line, "!series_matrix_table_begin"))
+        {
+            break;
+        }
+        if (str::StartsWith(line, "!Sample_"))
+        {
+            std::vector<std::string> column;
+            str::Split(line.substr(8), '\t', column);
+            hPhenotype.push_back(std::move(column));
+        }
+    }
+
+    // check if series matrix file is malformed
+    std::size_t cols = hPhenotype.size();
+    if (cols == 0)
+    {
+        throw SeriesMatrixFileParseError(file + ": malformed series matrix file");
+    }
+
+    // check if number of rows across columns is consistent
+    std::size_t rows = hPhenotype[0].size();
+    for (std::size_t col=1; col<cols; ++col)
+    {
+        if (hPhenotype[col].size() != rows)
+        {
+            throw SeriesMatrixFileParseError(file + ": inconsistent number of rows across columns");
+        }
+    }
+
+    // initialize phenotype dimensions
+    phenotype.resize(rows);
+    for (std::size_t row=0; row<rows; ++row)
+    {
+        phenotype[row].reserve(cols);
+    }
+
+    // push column names to phenotype
+    std::string colname;
+    std::unordered_map<std::string, int> counts;
+    for (std::size_t col=0; col<cols; ++col)
+    {
+        colname = hPhenotype[col][0];
+        auto it = counts.find(colname);
+        if (it != counts.end())
+        {
+            phenotype[0].push_back(colname + "." + std::to_string(it->second));
+            it->second += 1;
+        }
+        else
+        {
+            counts[colname] = 1;
+            phenotype[0].push_back(colname);
+        }
+    }
+
+    // push real data to phenotype
+    for (std::size_t row=1; row<rows; ++row)
+    {
+        for (std::size_t col=0; col<cols; ++col)
+        {
+            phenotype[row].push_back(std::move(hPhenotype[col][row]));
+        }
+    }
+}
+
+void PhenotypeHelper::Write(const Phenotype& phenotype, const std::string& file)
+{
+    std::ofstream out(file);
+    if (! out)
+    {
+        throw OsError(file + ": failed to open file");
+    }
+    std::size_t rows = phenotype.size();
+    std::size_t cols = phenotype[0].size();
+    for (std::size_t row=0; row<rows; ++row)
+    {
+        for (std::size_t col=0; col<cols; ++col)
+        {
+            if (col < cols - 1)
+            {
+                out << phenotype[row][col] << '\t';
+            }
+            else
+            {
+                out << phenotype[row][col] << '\n';
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@
 int main(int argc, char** argv)
 {
     QApplication app(argc, argv);
-    MANAGER->init();
+    MANAGER->Initialize();
     UiMain uiMain;
     uiMain.show();
     return app.exec();

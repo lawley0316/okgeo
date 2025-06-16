@@ -2,9 +2,8 @@
 #include "ui_uiprobetogene.h"
 #include "src/consts/api.h"
 #include "src/bend/gateway.h"
-#include "src/middle/signalmanager.h"
+#include "src/middle/signals.h"
 #include "src/middle/manager.h"
-#include "src/fend/uicom/dialog.h"
 
 #include <QDir>
 #include <QFileInfo>
@@ -20,11 +19,11 @@ UiProbeToGene::UiProbeToGene(QWidget *parent)
 
     // probe file
     ui->probeFile->setEnabled(false);
-    connect(ui->browseProbeFile, &QPushButton::clicked, this, &UiProbeToGene::onBrowseProbeFileClicked);
+    connect(ui->browseProbeFile, &QPushButton::clicked, this, &UiProbeToGene::BrowseProbeFile);
 
     // annotation file
     ui->annoFile->setEnabled(false);
-    connect(ui->browseAnnoFile, &QPushButton::clicked, this, &UiProbeToGene::onBrowseAnnoFileClicked);
+    connect(ui->browseAnnoFile, &QPushButton::clicked, this, &UiProbeToGene::BrowseAnnoFile);
 
     // gene column
     ui->column->setMinimum(2);
@@ -38,14 +37,11 @@ UiProbeToGene::UiProbeToGene(QWidget *parent)
 
     // outfile
     ui->outfile->setEnabled(false);
-    connect(ui->browseOutfile, &QPushButton::clicked, this, &UiProbeToGene::onBrowseOutfileClicked);
+    connect(ui->browseOutfile, &QPushButton::clicked, this, &UiProbeToGene::BrowseOutfile);
 
     // convert button
     ui->convert->setEnabled(false);
-    connect(ui->convert, &QPushButton::clicked, this, &UiProbeToGene::onConvertClicked);
-
-    // signals
-    connect(MANAGER->signalManager, &SignalManager::converted, this, &UiProbeToGene::onConverted);
+    connect(ui->convert, &QPushButton::clicked, this, &UiProbeToGene::Convert);
 }
 
 UiProbeToGene::~UiProbeToGene()
@@ -53,7 +49,7 @@ UiProbeToGene::~UiProbeToGene()
     delete ui;
 }
 
-bool UiProbeToGene::isValid() const
+bool UiProbeToGene::IsValid() const
 {
     QString probeFile = ui->probeFile->text();
     if (probeFile.isEmpty()) return false;
@@ -63,7 +59,7 @@ bool UiProbeToGene::isValid() const
     return ! outfile.isEmpty();
 }
 
-QJsonObject UiProbeToGene::getParams() const
+QJsonObject UiProbeToGene::GetParams() const
 {
     QJsonObject params;
     params["probeFile"] = ui->probeFile->text();
@@ -74,75 +70,40 @@ QJsonObject UiProbeToGene::getParams() const
     return params;
 }
 
-void UiProbeToGene::updateUi()
+void UiProbeToGene::UpdateUi()
 {
-    if (isValid()) {
-        ui->convert->setEnabled(true);
-    }
+    ui->convert->setEnabled(IsValid());
 }
 
-void UiProbeToGene::disableUi()
-{
-    ui->browseProbeFile->setEnabled(false);
-    ui->browseAnnoFile->setEnabled(false);
-    ui->column->setEnabled(false);
-    ui->method->setEnabled(false);
-    ui->browseOutfile->setEnabled(false);
-    ui->convert->setEnabled(false);
-}
-
-void UiProbeToGene::enableUi()
-{
-    ui->browseProbeFile->setEnabled(true);
-    ui->browseAnnoFile->setEnabled(true);
-    ui->column->setEnabled(true);
-    ui->method->setEnabled(true);
-    ui->browseOutfile->setEnabled(true);
-    updateUi();
-}
-
-void UiProbeToGene::onBrowseProbeFileClicked()
+void UiProbeToGene::BrowseProbeFile()
 {
     QString path = QFileDialog::getOpenFileName(this, tr("Please Choose"), previousDir, tr("Series Matrix File (*.txt)"));
     if (path.isEmpty()) return;
     previousDir = QFileInfo(path).dir().path();
     ui->probeFile->setText(path);
-    updateUi();
+    UpdateUi();
 }
 
-void UiProbeToGene::onBrowseAnnoFileClicked()
+void UiProbeToGene::BrowseAnnoFile()
 {
     QString path = QFileDialog::getOpenFileName(this, tr("Please Choose"), previousDir, tr("Annotation File (*.txt)"));
     if (path.isEmpty()) return;
     previousDir = QFileInfo(path).dir().path();
     ui->annoFile->setText(path);
-    updateUi();
+    UpdateUi();
 }
 
-void UiProbeToGene::onBrowseOutfileClicked()
+void UiProbeToGene::BrowseOutfile()
 {
     QString path = QFileDialog::getSaveFileName(this, tr("Please Choose"), previousDir + "/expressions.txt", tr("Text file (*.txt)"));
     if (path.isEmpty()) return;
     previousDir = QFileInfo(path).dir().path();
     ui->outfile->setText(path);
-    updateUi();
+    UpdateUi();
 }
 
-void UiProbeToGene::onConvertClicked()
+void UiProbeToGene::Convert()
 {
-    MANAGER->gateway->send(api::convert::CREATE, getParams());
-    emit MANAGER->signalManager->loading();
-}
-
-void UiProbeToGene::onConverted()
-{
-    Dialog dialog(this);
-    dialog.setTitle(tr("Successfully converted."));
-    dialog.setContent(tr("Do you want to open the result file?"));
-    dialog.addOkButton();
-    dialog.addCancelButton();
-    if (dialog.exec() == Dialog::Accepted) {
-        QDesktopServices::openUrl(QUrl::fromLocalFile(ui->outfile->text()));
-    }
-    enableUi();
+    MANAGER->mGateway->Send(API::PROBE_TO_GENE::CONVERT, GetParams());
+    emit MANAGER->mSignals->Loading();
 }

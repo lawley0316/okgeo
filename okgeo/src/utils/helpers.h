@@ -30,6 +30,12 @@ public:
     using std::runtime_error::runtime_error;
 };
 
+class OsError : public OkGeoError
+{
+public:
+    using OkGeoError::OkGeoError;
+};
+
 class ProbeFileParseError : public OkGeoError
 {
 public:
@@ -42,11 +48,18 @@ public:
     using OkGeoError::OkGeoError;
 };
 
+class SeriesMatrixFileParseError : public OkGeoError
+{
+public:
+    using OkGeoError::OkGeoError;
+};
+
 typedef std::vector<std::string> Ids;
 typedef std::unordered_map<std::string, std::string> Anno;
 typedef std::vector<double> Expr;
 typedef std::vector<Expr> Exprs;
 typedef std::vector<Expr*> ExprPtrs;
+typedef std::vector<std::vector<std::string>> Phenotype;
 
 class ProbeExprHelper
 {
@@ -72,6 +85,12 @@ protected:
     static void median(ExprPtrs& probeExprPtrs, Expr& geneExpr);
     static void max(ExprPtrs& probeExprPtrs, Expr& geneExpr);
     static void min(ExprPtrs& probeExprPtrs, Expr& geneExpr);
+};
+
+class PhenotypeHelper {
+public:
+    static void Parse(const std::string& file, Phenotype& phenotype);
+    static void Write(const Phenotype& phenotype, const std::string& file);
 };
 
 #endif // HELPERS_H

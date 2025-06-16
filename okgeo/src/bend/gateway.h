@@ -9,11 +9,12 @@ class Gateway : public QObject
     Q_OBJECT
 public:
     explicit Gateway(QObject *parent = nullptr);
-    void send(int api, const QJsonValue& params);
+    void Send(int api, const QJsonValue& params);
 
 protected:
-    void dispatch(int api, const QJsonValue& params);
-    void convert(const QJsonValue& params);
+    void Dispatch(int api, const QJsonValue& params);
+    void ConvertProbeToGene(const QJsonValue& params);
+    void ParsePhenotype(const QJsonValue& params);
 
 signals:
 };

@@ -1,6 +1,8 @@
 #ifndef UIPHENOTYPE_H
 #define UIPHENOTYPE_H
 
+#include "src/fend/uicom/loading.h"
+
 #include <QWidget>
 
 namespace Ui {
@@ -14,16 +16,18 @@ class UiPhenotype : public QWidget
 public:
     explicit UiPhenotype(QWidget *parent = nullptr);
     ~UiPhenotype();
-    bool isValid() const;
-    QJsonObject getParams() const;
-    void updateUi();
-    void onBrowseSeriesMatrixFileClicked();
-    void onBrowseOutfileClicked();
-    void onParseClicked();
+    bool IsValid() const;
+    QJsonObject GetParams() const;
+    void UpdateUi();
+
+public slots:
+    void BrowseSeriesMatrixFile();
+    void BrowseOutfile();
+    void Parse();
 
 private:
     Ui::UiPhenotype *ui;
-    QString previousDir;
+    QString mPreviousDir;
 };
 
 #endif // UIPHENOTYPE_H
