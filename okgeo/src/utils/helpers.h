@@ -60,7 +60,8 @@ protected:
     static void Min(ExprPtrs& probe_expr_ptrs, Expr& gene_expr);
 };
 
-class PhenotypeHelper { public:
+class PhenotypeHelper {
+public:
     static void Parse(const std::string& file, Phenotype& phenotype);
     static void Write(const Phenotype& phenotype, const std::string& file);
 };

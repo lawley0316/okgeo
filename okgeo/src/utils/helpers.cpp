@@ -4,6 +4,7 @@
 #include "rapidcsv.h"
 
 #include <fstream>
+#include <iostream>
 #include <algorithm>
 
 void ProbeExprHelper::Parse(const std::string& path, Ids& probes, Ids& samples, Exprs& probe_exprs)

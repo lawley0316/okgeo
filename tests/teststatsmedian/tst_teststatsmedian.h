@@ -1,3 +1,6 @@
+#ifndef TST_TESTSTATSMEDIAN_H
+#define TST_TESTSTATSMEDIAN_H
+
 #include <QtTest>
 
 
@@ -10,7 +13,6 @@ public:
     ~TestStatsMedian();
 
 private slots:
-    /*
     void test_empty();
     void test_single();
     void test_double();
@@ -19,5 +21,6 @@ private slots:
     void test_same();
     void test_negative();
     void test_float();
-    */
 };
+
+#endif
