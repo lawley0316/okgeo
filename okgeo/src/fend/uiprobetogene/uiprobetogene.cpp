@@ -13,17 +13,16 @@
 UiProbeToGene::UiProbeToGene(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::UiProbeToGene)
-    , previousDir(QDir::homePath())
-{
+    , previous_dir_(QDir::homePath()) {
     ui->setupUi(this);
 
     // probe file
-    ui->probeFile->setEnabled(false);
-    connect(ui->browseProbeFile, &QPushButton::clicked, this, &UiProbeToGene::BrowseProbeFile);
+    ui->probe_file->setEnabled(false);
+    connect(ui->browse_probe_file, &QPushButton::clicked, this, &UiProbeToGene::BrowseProbeFile);
 
     // annotation file
-    ui->annoFile->setEnabled(false);
-    connect(ui->browseAnnoFile, &QPushButton::clicked, this, &UiProbeToGene::BrowseAnnoFile);
+    ui->anno_file->setEnabled(false);
+    connect(ui->browse_anno_file, &QPushButton::clicked, this, &UiProbeToGene::BrowseAnnoFile);
 
     // gene column
     ui->column->setMinimum(2);
@@ -37,73 +36,65 @@ UiProbeToGene::UiProbeToGene(QWidget *parent)
 
     // outfile
     ui->outfile->setEnabled(false);
-    connect(ui->browseOutfile, &QPushButton::clicked, this, &UiProbeToGene::BrowseOutfile);
+    connect(ui->browse_outfile, &QPushButton::clicked, this, &UiProbeToGene::BrowseOutfile);
 
     // convert button
     ui->convert->setEnabled(false);
     connect(ui->convert, &QPushButton::clicked, this, &UiProbeToGene::Convert);
 }
 
-UiProbeToGene::~UiProbeToGene()
-{
+UiProbeToGene::~UiProbeToGene() {
     delete ui;
 }
 
-bool UiProbeToGene::IsValid() const
-{
-    QString probeFile = ui->probeFile->text();
-    if (probeFile.isEmpty()) return false;
-    QString annoFile = ui->annoFile->text();
-    if (annoFile.isEmpty()) return false;
+bool UiProbeToGene::IsValid() const {
+    QString probe_file = ui->probe_file->text();
+    if (probe_file.isEmpty()) return false;
+    QString anno_file = ui->anno_file->text();
+    if (anno_file.isEmpty()) return false;
     QString outfile = ui->outfile->text();
     return ! outfile.isEmpty();
 }
 
-QJsonObject UiProbeToGene::GetParams() const
-{
+QJsonObject UiProbeToGene::GetParams() const {
     QJsonObject params;
-    params["probeFile"] = ui->probeFile->text();
-    params["annoFile"] = ui->annoFile->text();
+    params["probe_file"] = ui->probe_file->text();
+    params["anno_file"] = ui->anno_file->text();
     params["column"] = ui->column->value();
     params["method"] = ui->method->currentText();
     params["outfile"] = ui->outfile->text();
     return params;
 }
 
-void UiProbeToGene::UpdateUi()
-{
+void UiProbeToGene::UpdateUi() {
     ui->convert->setEnabled(IsValid());
 }
 
-void UiProbeToGene::BrowseProbeFile()
-{
-    QString path = QFileDialog::getOpenFileName(this, tr("Please Choose"), previousDir, tr("Series Matrix File (*.txt)"));
+void UiProbeToGene::BrowseProbeFile() {
+    QString path = QFileDialog::getOpenFileName(this, tr("Please Choose"), previous_dir_, tr("Series Matrix File (*.txt)"));
     if (path.isEmpty()) return;
-    previousDir = QFileInfo(path).dir().path();
-    ui->probeFile->setText(path);
+    previous_dir_ = QFileInfo(path).dir().path();
+    ui->probe_file->setText(path);
     UpdateUi();
 }
 
-void UiProbeToGene::BrowseAnnoFile()
-{
-    QString path = QFileDialog::getOpenFileName(this, tr("Please Choose"), previousDir, tr("Annotation File (*.txt)"));
+void UiProbeToGene::BrowseAnnoFile() {
+    QString path = QFileDialog::getOpenFileName(this, tr("Please Choose"), previous_dir_, tr("Annotation File (*.txt)"));
     if (path.isEmpty()) return;
-    previousDir = QFileInfo(path).dir().path();
-    ui->annoFile->setText(path);
+    previous_dir_ = QFileInfo(path).dir().path();
+    ui->anno_file->setText(path);
     UpdateUi();
 }
 
-void UiProbeToGene::BrowseOutfile()
-{
-    QString path = QFileDialog::getSaveFileName(this, tr("Please Choose"), previousDir + "/expressions.txt", tr("Text file (*.txt)"));
+void UiProbeToGene::BrowseOutfile() {
+    QString path = QFileDialog::getSaveFileName(this, tr("Please Choose"), previous_dir_ + "/expressions.txt", tr("Text file (*.txt)"));
     if (path.isEmpty()) return;
-    previousDir = QFileInfo(path).dir().path();
+    previous_dir_ = QFileInfo(path).dir().path();
     ui->outfile->setText(path);
     UpdateUi();
 }
 
-void UiProbeToGene::Convert()
-{
-    MANAGER->mGateway->Send(API::PROBE_TO_GENE::CONVERT, GetParams());
-    emit MANAGER->mSignals->Loading();
+void UiProbeToGene::Convert() {
+    MANAGER->gtw->Send(API::PROBE_TO_GENE::CONVERT, GetParams());
+    emit MANAGER->sigs->Loading();
 }

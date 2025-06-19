@@ -15,10 +15,10 @@ class Dialog : public QDialog
 public:
     explicit Dialog(QWidget *parent = nullptr);
     ~Dialog();
-    void setTitle(const QString& title);
-    void setContent(const QString& content);
-    QPushButton* addOkButton(const QString& text = "Ok");
-    QPushButton* addCancelButton(const QString& text = "Cancel");
+    void SetTitle(const QString& title);
+    void SetContent(const QString& content);
+    QPushButton* AddOkButton(const QString& text = "Ok");
+    QPushButton* AddCancelButton(const QString& text = "Cancel");
 
 protected:
     bool eventFilter(QObject* watched, QEvent* event) override;

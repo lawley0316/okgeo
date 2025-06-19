@@ -18,41 +18,41 @@ class Error : public std::exception
 public:
     Error() = default;
     Error(const QString& code, const QString& title)
-        : mCode(code)
-        , mTitle(title)
+        : code_(code)
+        , title_(title)
     {
     }
     Error(const QString& code, const QString& title, const QString detail)
-        : mCode(code)
-        , mTitle(title)
-        , mDetail(detail)
+        : code_(code)
+        , title_(title)
+        , detail_(detail)
     {
     }
     QString GetCode() const
     {
-        return mCode;
+        return code_;
     }
     QString GetTitle() const
     {
-        return mTitle;
+        return title_;
     }
     QString GetDetail() const
     {
-        return mDetail;
+        return detail_;
     }
     void SetDetail(const QString& detail)
     {
-        mDetail = detail;
+        detail_ = detail;
     }
     QString Message() const
     {
-        if (mDetail.isEmpty())
+        if (detail_.isEmpty())
         {
-            return mCode + " - " + mTitle;
+            return code_ + " - " + title_;
         }
         else
         {
-            return mCode + " - " + mTitle + ": " + mDetail;
+            return code_ + " - " + title_ + ": " + detail_;
         }
     }
     static Error Get(const QString& code, const QString& detail="")
@@ -60,9 +60,9 @@ public:
         return {code, kErrors[code], detail};
     }
 private:
-    QString mCode;
-    QString mTitle;
-    QString mDetail;
+    QString code_;
+    QString title_;
+    QString detail_;
 };
 
 #endif // ERROR_H

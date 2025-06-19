@@ -13,7 +13,6 @@ signals:
     void Loading();
     void ProbeToGeneConverted(const QString& path);
     void PhenotypeParsed(const QString& path);
-    void errorOccurred(const QString& detail);
     void ErrorOccurred(int api, const QJsonValue& params, const QString& message);
 };
 

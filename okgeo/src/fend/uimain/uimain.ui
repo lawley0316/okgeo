@@ -103,7 +103,7 @@
        </layout>
       </item>
       <item>
-       <widget class="NavItem" name="probeToGene">
+       <widget class="NavItem" name="probe_to_gene">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>

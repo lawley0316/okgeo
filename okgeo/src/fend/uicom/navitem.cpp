@@ -1,109 +1,97 @@
 #include "navitem.h"
 
 NavItem::NavItem(QWidget* parent)
-    : QToolButton(parent)
-{
+    : QToolButton(parent) {
     setCursor(Qt::PointingHandCursor);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 }
 
-void NavItem::setDefaultIcon(const QIcon& icon)
-{
-    defaultIcon = icon;
-    updateUi();
+void NavItem::SetDefaultIcon(const QIcon& icon) {
+    default_icon_ = icon;
+    UpdateUi();
 }
 
-void NavItem::setActiveIcon(const QIcon& icon)
-{
-    activeIcon = icon;
-    updateUi();
+void NavItem::SetActiveIcon(const QIcon& icon) {
+    active_icon_ = icon;
+    UpdateUi();
 }
 
-void NavItem::setDefaultTextColor(const QColor& color)
-{
-    defaultTextColor = color;
-    updateUi();
+void NavItem::SetDefaultTextColor(const QColor& color) {
+    default_text_color_ = color;
+    UpdateUi();
 }
 
-void NavItem::setActiveTextColor(const QColor& color)
-{
-    activeTextColor = color;
-    updateUi();
+void NavItem::SetActiveTextColor(const QColor& color) {
+    active_text_color_ = color;
+    UpdateUi();
 }
 
-void NavItem::setDefaultBgColor(const QColor& color)
-{
-    defaultBgColor = color;
-    updateUi();
+void NavItem::SetDefaultBgColor(const QColor& color) {
+    default_bg_color_ = color;
+    UpdateUi();
 }
 
-void NavItem::setActiveBgColor(const QColor& color)
-{
-    activeBgColor = color;
-    updateUi();
+void NavItem::SetActiveBgColor(const QColor& color) {
+    active_bg_color_ = color;
+    UpdateUi();
 }
 
-void NavItem::activate()
-{
-    isActive = true;
-    updateUi();
+void NavItem::Activate() {
+    is_active_ = true;
+    UpdateUi();
 }
 
-void NavItem::deactivate()
-{
-    isActive = false;
-    updateUi();
+void NavItem::Deactivate() {
+    is_active_ = false;
+    UpdateUi();
 }
 
-void NavItem::enterEvent(QEnterEvent* event)
-{
-    isHovering = true;
-    updateUi();
+void NavItem::enterEvent(QEnterEvent* event) {
+    is_hovering_ = true;
+    UpdateUi();
     QToolButton::enterEvent(event);
 }
 
-void NavItem::leaveEvent(QEvent* event)
-{
-    isHovering = false;
-    updateUi();
+void NavItem::leaveEvent(QEvent* event) {
+    is_hovering_ = false;
+    UpdateUi();
     QToolButton::leaveEvent(event);
 }
 
-void NavItem::updateUi()
-{
-    bool ok = isActive || isHovering;
+void NavItem::UpdateUi() {
+    bool ok = is_active_ || is_hovering_;
 
     // icon settings
-    if (! defaultIcon.isNull()) {  // omit icon settings when default icon is null
-        if (activeIcon.isNull()) {
-            setIcon(defaultIcon);
+    if (! default_icon_.isNull()) {  // omit icon settings when default icon is null
+        if (active_icon_.isNull()) {
+            setIcon(default_icon_);
         } else {
-            setIcon(ok ? activeIcon : defaultIcon);
+            setIcon(ok ? active_icon_ : default_icon_);
         }
     }
 
     QStringList style = {"QToolButton {"};
 
     // text color settings
-    if (defaultTextColor.isValid()) {  // omit text color settings when default text color is invalid
-        QString textColor;
-        if (activeTextColor.isValid()) {
-            textColor = ok ? activeTextColor.name() : defaultTextColor.name();
+    if (default_text_color_.isValid()) {  // omit text color settings when default text color is invalid
+        QString text_color;
+        if (active_text_color_.isValid()) {
+            text_color = ok ? active_text_color_.name() : default_text_color_.name();
         } else {
-            textColor = defaultTextColor.name();
+            text_color = default_text_color_.name();
         }
-        style.append("color: " + textColor + ";");
+        style.append("color: " + text_color + ";");
     }
 
     // background color settings
-    if (defaultBgColor.isValid()) {  // omit background color settings when default background color is invalid
-        QString bgColor;
-        if (activeBgColor.isValid()) {
-            bgColor = ok ? activeBgColor.name() : defaultBgColor.name();
+    if (default_bg_color_.isValid()) {  // omit background color settings when default background color is invalid
+        QString bg_color;
+        if (active_bg_color_.isValid()) {
+            bg_color = ok ? active_bg_color_.name() : default_bg_color_.name();
         } else {
-            bgColor = defaultBgColor.name();
+            bg_color = default_bg_color_.name();
         }
-        style.append("background-color: " + bgColor + ";");
+        style.append("background-color: " + bg_color + ";");
     }
 
     style.append("border: none;");

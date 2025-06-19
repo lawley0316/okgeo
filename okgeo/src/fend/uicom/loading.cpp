@@ -3,14 +3,12 @@
 
 Loading::Loading(QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::Loading)
-{
+    , ui(new Ui::Loading) {
     ui->setupUi(this);
     setWindowFlag(Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
 }
 
-Loading::~Loading()
-{
+Loading::~Loading() {
     delete ui;
 }

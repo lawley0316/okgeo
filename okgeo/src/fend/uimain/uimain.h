@@ -25,7 +25,7 @@ public slots:
 
 private:
     Ui::UiMain *ui;
-    Loading* mLoading;
+    Loading* loading_;
 };
 
 #endif // UIMAIN_H

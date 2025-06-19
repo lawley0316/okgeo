@@ -17,8 +17,8 @@ public:
     void Initialize();
 
 public:
-    Gateway* mGateway;
-    Signals* mSignals;
+    Gateway* gtw;
+    Signals* sigs;
 };
 
 #endif // MANAGER_H

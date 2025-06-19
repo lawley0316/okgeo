@@ -28,7 +28,7 @@ public slots:
 
 private:
     Ui::UiProbeToGene *ui;
-    QString previousDir;
+    QString previous_dir_;
 };
 
 #endif // UIPROBETOGENE_H

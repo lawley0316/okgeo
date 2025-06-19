@@ -10,17 +10,14 @@ Q_GLOBAL_STATIC(Manager, ins)
 
 Manager::Manager(QObject *parent)
     : QObject{parent}
-    , mGateway(new Gateway(this))
-    , mSignals(new Signals(this))
-{}
+    , gtw(new Gateway(this))
+    , sigs(new Signals(this)) {}
 
-Manager* Manager::GetInstance()
-{
+Manager* Manager::GetInstance() {
     return ins();
 }
 
-void Manager::Initialize()
-{
+void Manager::Initialize() {
     // base
     QFile baseQss(":/static/base.qss");
     baseQss.open(QIODevice::ReadOnly);

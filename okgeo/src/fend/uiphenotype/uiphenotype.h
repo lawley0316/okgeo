@@ -27,7 +27,7 @@ public slots:
 
 private:
     Ui::UiPhenotype *ui;
-    QString mPreviousDir;
+    QString previous_dir_;
 };
 
 #endif // UIPHENOTYPE_H

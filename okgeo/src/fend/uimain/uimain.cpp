@@ -10,8 +10,7 @@
 UiMain::UiMain(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::UiMain)
-    , mLoading(new Loading(this))
-{
+    , loading_(new Loading(this)) {
     ui->setupUi(this);
     setWindowTitle("OkGEO");
 
@@ -21,24 +20,24 @@ UiMain::UiMain(QWidget *parent)
     ui->logo->setScaledContents(true);
 
     // probe to gene
-    ui->probeToGene->setDefaultIcon(QIcon(":/static/map-dark.png"));
-    ui->probeToGene->setActiveIcon(QIcon(":/static/map-light.png"));
-    ui->probeToGene->setDefaultTextColor(QColor("#666666"));
-    ui->probeToGene->setActiveTextColor(QColor("#455DD0"));
-    ui->probeToGene->setIconSize(QSize(25, 25));
-    ui->probeToGene->setText(tr("Probe to Gene"));
-    ui->probeToGene->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    ui->probeToGene->setToolTip(tr(
+    ui->probe_to_gene->SetDefaultIcon(QIcon(":/static/map-dark.png"));
+    ui->probe_to_gene->SetActiveIcon(QIcon(":/static/map-light.png"));
+    ui->probe_to_gene->SetDefaultTextColor(QColor("#666666"));
+    ui->probe_to_gene->SetActiveTextColor(QColor("#455DD0"));
+    ui->probe_to_gene->setIconSize(QSize(25, 25));
+    ui->probe_to_gene->setText(tr("Probe to Gene"));
+    ui->probe_to_gene->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    ui->probe_to_gene->setToolTip(tr(
         "Given a probe annotation file, the column containing gene symbols, "
         "and the method for merging probes, convert probe expression to gene expression."
     ));
-    connect(ui->probeToGene, &QToolButton::clicked, this, &UiMain::ConvertProbeToGene);
+    connect(ui->probe_to_gene, &QToolButton::clicked, this, &UiMain::ConvertProbeToGene);
 
     // phenotype
-    ui->phenotype->setDefaultIcon(QIcon(":/static/phenotype-dark.png"));
-    ui->phenotype->setActiveIcon(QIcon(":/static/phenotype-light.png"));
-    ui->phenotype->setDefaultTextColor(QColor("#666666"));
-    ui->phenotype->setActiveTextColor(QColor("#455DD0"));
+    ui->phenotype->SetDefaultIcon(QIcon(":/static/phenotype-dark.png"));
+    ui->phenotype->SetActiveIcon(QIcon(":/static/phenotype-light.png"));
+    ui->phenotype->SetDefaultTextColor(QColor("#666666"));
+    ui->phenotype->SetActiveTextColor(QColor("#455DD0"));
     ui->phenotype->setIconSize(QSize(25, 25));
     ui->phenotype->setText(tr("Phenotype"));
     ui->phenotype->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -46,72 +45,62 @@ UiMain::UiMain(QWidget *parent)
     connect(ui->phenotype, &QToolButton::clicked, this, &UiMain::ParsePhenotype);
 
     // about
-    ui->about->setDefaultIcon(QIcon(":/static/about-dark.png"));
-    ui->about->setActiveIcon(QIcon(":/static/about-light.png"));
+    ui->about->SetDefaultIcon(QIcon(":/static/about-dark.png"));
+    ui->about->SetActiveIcon(QIcon(":/static/about-light.png"));
     ui->about->setIconSize(QSize(25, 25));
     ui->about->setToolTip(tr("About"));
 
-    ui->probeToGene->activate();
+    ui->probe_to_gene->Activate();
     ui->pages->setCurrentIndex(0);
 
     // signals
-    connect(MANAGER->mSignals, &Signals::Loading, mLoading, &QDialog::exec);
-    connect(MANAGER->mSignals, &Signals::ProbeToGeneConverted, this, &UiMain::OpenResultFile);
-    connect(MANAGER->mSignals, &Signals::PhenotypeParsed, this, &UiMain::OpenResultFile);
-    connect(MANAGER->mSignals, &Signals::ErrorOccurred, this, &UiMain::ShowError);
+    connect(MANAGER->sigs, &Signals::Loading, loading_, &QDialog::exec);
+    connect(MANAGER->sigs, &Signals::ProbeToGeneConverted, this, &UiMain::OpenResultFile);
+    connect(MANAGER->sigs, &Signals::PhenotypeParsed, this, &UiMain::OpenResultFile);
+    connect(MANAGER->sigs, &Signals::ErrorOccurred, this, &UiMain::ShowError);
 }
 
-UiMain::~UiMain()
-{
+UiMain::~UiMain() {
     delete ui;
-    delete mLoading;
+    delete loading_;
 }
 
-void UiMain::ConvertProbeToGene()
-{
-    ui->probeToGene->activate();
-    ui->phenotype->deactivate();
+void UiMain::ConvertProbeToGene() {
+    ui->probe_to_gene->Activate();
+    ui->phenotype->Deactivate();
     ui->pages->setCurrentIndex(0);
 }
 
-void UiMain::ParsePhenotype()
-{
-    ui->probeToGene->deactivate();
-    ui->phenotype->activate();
+void UiMain::ParsePhenotype() {
+    ui->probe_to_gene->Deactivate();
+    ui->phenotype->Activate();
     ui->pages->setCurrentIndex(1);
 }
 
-void UiMain::OpenResultFile(const QString& path)
-{
-    mLoading->accept();
+void UiMain::OpenResultFile(const QString& path) {
+    loading_->accept();
     QTimer::singleShot(
-        0, this,
-        [=]()
-        {
+        0, this, [=]() {
             Dialog dialog(this);
-            dialog.setTitle(tr("Finished."));
-            dialog.setContent(tr("Do you want to open the result file?"));
-            dialog.addOkButton();
-            dialog.addCancelButton();
-            if (dialog.exec() == Dialog::Accepted)
-            {
+            dialog.SetTitle(tr("Finished."));
+            dialog.SetContent(tr("Do you want to open the result file?"));
+            dialog.AddOkButton();
+            dialog.AddCancelButton();
+            if (dialog.exec() == Dialog::Accepted) {
                 QDesktopServices::openUrl(QUrl::fromLocalFile(path));
             }
         }
     );
 }
 
-void UiMain::ShowError(int api, const QJsonValue& params, const QString& message)
-{
-    mLoading->accept();
+void UiMain::ShowError(int api, const QJsonValue& params, const QString& message) {
+    loading_->accept();
     QTimer::singleShot(
-        0, this,
-        [=]()
-        {
+        0, this, [=]() {
             Dialog dialog(this);
-            dialog.setTitle(tr("Error occurred."));
-            dialog.setContent(message);
-            dialog.addOkButton();
+            dialog.SetTitle(tr("Error occurred."));
+            dialog.SetContent(message);
+            dialog.AddOkButton();
             dialog.exec();
         }
     );

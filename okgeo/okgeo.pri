@@ -14,6 +14,7 @@ HEADERS += \
     $$PWD/src/utils/helpers.h \
     $$PWD/src/utils/rapidcsv.h \
     $$PWD/src/fend/uimain/uimain.h \
+    $$PWD/src/utils/stats.h \
     $$PWD/src/utils/str.h
 
 SOURCES += \

@@ -14,17 +14,12 @@ Gateway::Gateway(QObject *parent)
 void Gateway::Send(int api, const QJsonValue& params)
 {
     QtConcurrent::run([=]() {
-        try
-        {
+        try {
             Dispatch(api, params);
-        }
-        catch (const Error& err)
-        {
-            emit MANAGER->mSignals->ErrorOccurred(api, params, err.Message());
-        }
-        catch (...)
-        {
-            emit MANAGER->mSignals->ErrorOccurred(api, params, tr("unexpected error occurred"));
+        } catch (const Error& err) {
+            emit MANAGER->sigs->ErrorOccurred(api, params, err.Message());
+        } catch (...) {
+            emit MANAGER->sigs->ErrorOccurred(api, params, tr("unexpected error occurred"));
         }
     });
 }
@@ -47,8 +42,8 @@ void Gateway::Dispatch(int api, const QJsonValue& params)
 
 void Gateway::ConvertProbeToGene(const QJsonValue& params)
 {
-    QString probeFile = params["probeFile"].toString();
-    QString annoFile = params["annoFile"].toString();
+    QString probe_file = params["probe_file"].toString();
+    QString anno_file = params["anno_file"].toString();
     int column = params["column"].toInt();
     QString method = params["method"].toString();
     QString outfile = params["outfile"].toString();
@@ -56,9 +51,9 @@ void Gateway::ConvertProbeToGene(const QJsonValue& params)
     // 1. parse probe file
     Ids probes;
     Ids samples;
-    Exprs probeExprs;
+    Exprs probe_exprs;
     try {
-        ProbeExprHelper::parse(probeFile.toStdString(), probes, samples, probeExprs);
+        ProbeExprHelper::Parse(probe_file.toStdString(), probes, samples, probe_exprs);
     } catch (const OkGeoError& err) {
         throw Error::Get("111", err.what());
     }
@@ -66,56 +61,50 @@ void Gateway::ConvertProbeToGene(const QJsonValue& params)
     // 2. parse annotation file
     Anno anno;
     try {
-        AnnoHelper::parse(annoFile.toStdString(), column, anno);
+        AnnoHelper::Parse(anno_file.toStdString(), column, anno);
     } catch (const OkGeoError& err) {
         throw Error::Get("121", err.what());
     }
 
     // 3. map probe expression
-    std::unordered_map<std::string, ExprPtrs> geneProbeExprs;
-    GeneExprHelper::map(anno, probes, probeExprs, geneProbeExprs);
-    if (geneProbeExprs.empty()) {
+    std::unordered_map<std::string, ExprPtrs> gene_probe_exprs;
+    GeneExprHelper::Map(anno, probes, probe_exprs, gene_probe_exprs);
+    if (gene_probe_exprs.empty()) {
         throw Error::Get("131", "zero probes successfully annotated to genes");
     }
 
-    // 4. merge
+    // 4. aggregate
     Ids genes;
-    Exprs geneExprs;
-    GeneExprHelper::merge(geneProbeExprs, method.toStdString(), genes, geneExprs);
+    Exprs gene_exprs;
+    GeneExprHelper::Aggregate(gene_probe_exprs, method.toStdString(), genes, gene_exprs);
 
     // 5. save
-    GeneExprHelper::write(genes, samples, geneExprs, outfile.toStdString());
+    GeneExprHelper::Write(genes, samples, gene_exprs, outfile.toStdString());
 
     // 6. emit finished signal
-    emit MANAGER->mSignals->ProbeToGeneConverted(outfile);
+    emit MANAGER->sigs->ProbeToGeneConverted(outfile);
 }
 
 void Gateway::ParsePhenotype(const QJsonValue& params)
 {
-    QString seriesMatrixFile = params["seriesMatrixFile"].toString();
+    QString series_matrix_file = params["series_matrix_file"].toString();
     QString outfile = params["outfile"].toString();
     Phenotype phenotype;
 
     // parse
-    try
-    {
-        PhenotypeHelper::Parse(seriesMatrixFile.toStdString(), phenotype);
-    }
-    catch (const OkGeoError& err)
-    {
+    try {
+        PhenotypeHelper::Parse(series_matrix_file.toStdString(), phenotype);
+    } catch (const OkGeoError& err) {
         throw Error::Get("211", err.what());
     }
 
     // write
-    try
-    {
+    try {
         PhenotypeHelper::Write(phenotype, outfile.toStdString());
-    }
-    catch (const OkGeoError& err)
-    {
+    } catch (const OkGeoError& err) {
         throw Error::Get("221", err.what());
     }
 
     // emit finished signal
-    emit MANAGER->mSignals->PhenotypeParsed(outfile);
+    emit MANAGER->sigs->PhenotypeParsed(outfile);
 }

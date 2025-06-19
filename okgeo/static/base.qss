@@ -221,16 +221,16 @@ Dialog > QFrame {
     background-color: #FFFFFF;
 }
 
-Dialog > QFrame > #titleLabel {
+Dialog > QFrame > #title {
     color: #333333;
     font-size: 16px;
 }
 
-Dialog > QFrame > #closeButton {
+Dialog > QFrame > #close {
     border: none;
 }
 
-Dialog > QFrame > #contentLabel {
+Dialog > QFrame > #content {
     font-size: 14px;
     color: #666666;
 }
