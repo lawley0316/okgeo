@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>681</width>
-    <height>317</height>
+    <height>535</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -140,6 +140,19 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <widget class="NavItem" name="help">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="NavItem" name="about">

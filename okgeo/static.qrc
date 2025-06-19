@@ -14,5 +14,7 @@
         <file>static/logo.icns</file>
         <file>static/phenotype-dark.png</file>
         <file>static/phenotype-light.png</file>
+        <file>static/help-dark.png</file>
+        <file>static/help-light.png</file>
     </qresource>
 </RCC>

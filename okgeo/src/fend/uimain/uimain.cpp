@@ -1,11 +1,13 @@
 #include "uimain.h"
 #include "ui_uimain.h"
-#include "src/fend/uicom/dialog.h"
-#include "src/middle/manager.h"
-#include "src/middle/signals.h"
 
 #include <QTimer>
 #include <QDesktopServices>
+
+#include "src/middle/manager.h"
+#include "src/middle/signals.h"
+#include "src/fend/uicom/dialog.h"
+#include "src/fend/uiabout/uiabout.h"
 
 UiMain::UiMain(QWidget *parent)
     : QDialog(parent)
@@ -44,11 +46,19 @@ UiMain::UiMain(QWidget *parent)
     ui->phenotype->setToolTip(tr("Parse the phenotype data from the Series Matrix file."));
     connect(ui->phenotype, &QToolButton::clicked, this, &UiMain::ParsePhenotype);
 
+    // help
+    ui->help->SetDefaultIcon(QIcon(":/static/help-dark.png"));
+    ui->help->SetActiveIcon(QIcon(":/static/help-light.png"));
+    ui->help->setIconSize(QSize(25, 25));
+    ui->help->setToolTip(tr("Help"));
+    connect(ui->help, &QToolButton::clicked, this, &UiMain::Help);
+
     // about
     ui->about->SetDefaultIcon(QIcon(":/static/about-dark.png"));
     ui->about->SetActiveIcon(QIcon(":/static/about-light.png"));
     ui->about->setIconSize(QSize(25, 25));
     ui->about->setToolTip(tr("About"));
+    connect(ui->about, &QToolButton::clicked, this, &UiMain::About);
 
     ui->probe_to_gene->Activate();
     ui->pages->setCurrentIndex(0);
@@ -104,4 +114,13 @@ void UiMain::ShowError(int api, const QJsonValue& params, const QString& message
             dialog.exec();
         }
     );
+}
+
+void UiMain::Help() {
+    QDesktopServices::openUrl(QUrl("https://okgeo.lawley.cn"));
+}
+
+void UiMain::About() {
+    UiAbout about;
+    about.exec();
 }

@@ -2,6 +2,7 @@ QT += core gui widgets concurrent
 
 HEADERS += \
     $$PWD/src/consts/api.h \
+    $$PWD/src/fend/uiabout/uiabout.h \
     $$PWD/src/fend/uicom/dialog.h \
     $$PWD/src/fend/uicom/loading.h \
     $$PWD/src/fend/uicom/navitem.h \
@@ -18,6 +19,7 @@ HEADERS += \
     $$PWD/src/utils/str.h
 
 SOURCES += \
+    $$PWD/src/fend/uiabout/uiabout.cpp \
     $$PWD/src/fend/uicom/dialog.cpp \
     $$PWD/src/fend/uicom/loading.cpp \
     $$PWD/src/fend/uicom/navitem.cpp \
@@ -30,6 +32,7 @@ SOURCES += \
     $$PWD/src/fend/uimain/uimain.cpp
 
 FORMS += \
+    $$PWD/src/fend/uiabout/uiabout.ui \
     $$PWD/src/fend/uicom/dialog.ui \
     $$PWD/src/fend/uicom/loading.ui \
     $$PWD/src/fend/uimain/uimain.ui \

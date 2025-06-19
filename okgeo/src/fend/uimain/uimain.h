@@ -22,6 +22,8 @@ public slots:
     void ParsePhenotype();
     void OpenResultFile(const QString& path);
     void ShowError(int api, const QJsonValue& params, const QString& message);
+    void Help();
+    void About();
 
 private:
     Ui::UiMain *ui;
