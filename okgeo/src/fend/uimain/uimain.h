@@ -25,6 +25,9 @@ public slots:
     void Help();
     void About();
 
+protected:
+    void keyPressEvent(QKeyEvent* event) override;
+
 private:
     Ui::UiMain *ui;
     Loading* loading_;

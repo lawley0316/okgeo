@@ -2,6 +2,7 @@
 #include "ui_uimain.h"
 
 #include <QTimer>
+#include <QKeyEvent>
 #include <QDesktopServices>
 
 #include "src/middle/manager.h"
@@ -123,4 +124,9 @@ void UiMain::Help() {
 void UiMain::About() {
     UiAbout about;
     about.exec();
+}
+
+void UiMain::keyPressEvent(QKeyEvent* event) {
+    if (event->key() == Qt::Key_Escape) return;
+    QDialog::keyPressEvent(event);
 }
