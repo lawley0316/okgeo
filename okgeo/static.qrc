@@ -16,5 +16,9 @@
         <file>static/phenotype-light.png</file>
         <file>static/help-dark.png</file>
         <file>static/help-light.png</file>
+        <file>static/down-1.png</file>
+        <file>static/down-2.png</file>
+        <file>static/up-1.png</file>
+        <file>static/up-2.png</file>
     </qresource>
 </RCC>
