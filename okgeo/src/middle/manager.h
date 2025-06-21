@@ -7,6 +7,7 @@
 
 class Gateway;
 class Signals;
+class Language;
 
 class Manager : public QObject
 {
@@ -19,6 +20,7 @@ public:
 public:
     Gateway* gtw;
     Signals* sigs;
+    Language* lang;
 };
 
 #endif // MANAGER_H

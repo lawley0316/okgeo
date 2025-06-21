@@ -28,12 +28,6 @@ UiProbeToGene::UiProbeToGene(QWidget *parent)
     ui->column->setMinimum(2);
     ui->column->setMaximum(100);
 
-    // probe merege method
-    ui->method->addItem(tr("mean"), "mean");
-    ui->method->addItem(tr("median"), "median");
-    ui->method->addItem(tr("max"), "max");
-    ui->method->addItem(tr("min"), "min");
-
     // outfile
     ui->outfile->setEnabled(false);
     connect(ui->browse_outfile, &QPushButton::clicked, this, &UiProbeToGene::BrowseOutfile);
@@ -41,6 +35,8 @@ UiProbeToGene::UiProbeToGene(QWidget *parent)
     // convert button
     ui->convert->setEnabled(false);
     connect(ui->convert, &QPushButton::clicked, this, &UiProbeToGene::Convert);
+
+    RetranslateUi();
 }
 
 UiProbeToGene::~UiProbeToGene() {
@@ -61,13 +57,24 @@ QJsonObject UiProbeToGene::GetParams() const {
     params["probe_file"] = ui->probe_file->text();
     params["anno_file"] = ui->anno_file->text();
     params["column"] = ui->column->value();
-    params["method"] = ui->method->currentText();
+    params["method"] = ui->method->currentData().toString();
     params["outfile"] = ui->outfile->text();
     return params;
 }
 
 void UiProbeToGene::UpdateUi() {
     ui->convert->setEnabled(IsValid());
+}
+
+void UiProbeToGene::RetranslateUi() {
+    ui->retranslateUi(this);
+
+    // aggregate method
+    ui->method->clear();
+    ui->method->addItem(tr("mean"), "mean");
+    ui->method->addItem(tr("median"), "median");
+    ui->method->addItem(tr("max"), "max");
+    ui->method->addItem(tr("min"), "min");
 }
 
 void UiProbeToGene::BrowseProbeFile() {

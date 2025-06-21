@@ -19,6 +19,7 @@ public:
     bool IsValid() const;
     QJsonObject GetParams() const;
     void UpdateUi();
+    void RetranslateUi();
 
 public slots:
     void BrowseProbeFile();

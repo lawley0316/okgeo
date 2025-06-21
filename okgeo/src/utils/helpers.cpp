@@ -4,7 +4,6 @@
 #include "rapidcsv.h"
 
 #include <fstream>
-#include <iostream>
 #include <algorithm>
 
 void ProbeExprHelper::Parse(const std::string& path, Ids& probes, Ids& samples, Exprs& probe_exprs)
@@ -76,7 +75,7 @@ void GeneExprHelper::Aggregate(std::unordered_map<std::string, ExprPtrs>& gene_p
     } else if (method == "min") {
         func = Min;
     } else {
-        throw std::runtime_error(method + ": invalid probe aggregate method");
+        throw std::runtime_error("invalid probe aggregate method");
     }
 
     // sort genes
@@ -209,7 +208,7 @@ void GeneExprHelper::Min(ExprPtrs& probe_expr_ptrs, Expr& gene_expr) {
 
 void PhenotypeHelper::Parse(const std::string& file, Phenotype& phenotype) {
     std::ifstream in(file);
-    if (! in) throw OsError(file + ": failed to open file");
+    if (! in) throw OsError("failed to open file");
 
     // read horizontail phenotype
     Phenotype h_phenotype;
@@ -226,13 +225,13 @@ void PhenotypeHelper::Parse(const std::string& file, Phenotype& phenotype) {
 
     // check if series matrix file is malformed
     std::size_t cols = h_phenotype.size();
-    if (cols == 0) throw SeriesMatrixFileParseError(file + ": malformed series matrix file");
+    if (cols == 0) throw SeriesMatrixFileParseError("malformed series matrix file");
 
     // check if number of rows across columns is consistent
     std::size_t rows = h_phenotype[0].size();
     for (std::size_t col=1; col<cols; ++col) {
         if (h_phenotype[col].size() != rows) {
-            throw SeriesMatrixFileParseError(file + ": inconsistent number of rows across columns");
+            throw SeriesMatrixFileParseError("inconsistent number of rows across columns");
         }
     }
 
@@ -268,7 +267,7 @@ void PhenotypeHelper::Parse(const std::string& file, Phenotype& phenotype) {
 void PhenotypeHelper::Write(const Phenotype& phenotype, const std::string& file)
 {
     std::ofstream out(file);
-    if (! out) throw OsError(file + ": failed to open file");
+    if (! out) throw OsError("failed to open file");
     std::size_t rows = phenotype.size();
     std::size_t cols = phenotype[0].size();
     for (std::size_t row=0; row<rows; ++row) {

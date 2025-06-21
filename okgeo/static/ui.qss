@@ -17,7 +17,7 @@ UiAbout > #title {
     font-weight: bold;
 }
 
-UiAbout > #email, UiAbout > #copyright {
+UiAbout > #email, UiAbout > #website, UiAbout > #copyright {
     color: #999999;
     font-size: 12px;
 }

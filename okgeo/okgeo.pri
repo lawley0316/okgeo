@@ -9,6 +9,7 @@ HEADERS += \
     $$PWD/src/bend/gateway.h \
     $$PWD/src/fend/uiphenotype/uiphenotype.h \
     $$PWD/src/fend/uiprobetogene/uiprobetogene.h \
+    $$PWD/src/middle/language.h \
     $$PWD/src/middle/manager.h \
     $$PWD/src/middle/signals.h \
     $$PWD/src/utils/error.h \
@@ -26,6 +27,7 @@ SOURCES += \
     $$PWD/src/bend/gateway.cpp \
     $$PWD/src/fend/uiphenotype/uiphenotype.cpp \
     $$PWD/src/fend/uiprobetogene/uiprobetogene.cpp \
+    $$PWD/src/middle/language.cpp \
     $$PWD/src/middle/manager.cpp \
     $$PWD/src/middle/signals.cpp \
     $$PWD/src/utils/helpers.cpp \

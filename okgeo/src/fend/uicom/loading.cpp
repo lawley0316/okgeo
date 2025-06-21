@@ -12,3 +12,7 @@ Loading::Loading(QWidget *parent)
 Loading::~Loading() {
     delete ui;
 }
+
+void Loading::RetranslateUi() {
+    ui->retranslateUi(this);
+}

@@ -14,6 +14,7 @@ class Loading : public QDialog
 public:
     explicit Loading(QWidget *parent = nullptr);
     ~Loading();
+    void RetranslateUi();
 
 private:
     Ui::Loading *ui;

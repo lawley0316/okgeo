@@ -15,6 +15,12 @@ public:
     explicit UiAbout(QWidget *parent = nullptr);
     ~UiAbout();
 
+public slots:
+    void OpenDocs();
+
+protected:
+    bool eventFilter(QObject* watced, QEvent* event) override;
+
 private:
     Ui::UiAbout *ui;
 };

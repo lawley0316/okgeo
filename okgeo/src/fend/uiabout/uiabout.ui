@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>About</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -41,7 +41,7 @@
      <item>
       <widget class="QLabel" name="logo">
        <property name="text">
-        <string>logo</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -82,7 +82,23 @@
       <cursorShape>IBeamCursor</cursorShape>
      </property>
      <property name="text">
-      <string>lawley0316@gmail.com</string>
+      <string>E-mail: lawley0316@gmail.com</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="website">
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>Docmentations: https://okgeo.lawley.cn</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

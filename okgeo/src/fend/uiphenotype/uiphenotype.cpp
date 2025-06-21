@@ -50,6 +50,10 @@ void UiPhenotype::UpdateUi() {
     ui->parse->setEnabled(IsValid());
 }
 
+void UiPhenotype::RetranslateUi() {
+    ui->retranslateUi(this);
+}
+
 void UiPhenotype::BrowseSeriesMatrixFile() {
     QString path = QFileDialog::getOpenFileName(this, tr("Please Choose"), previous_dir_, tr("Series Matrix File (*.txt)"));
     if (path.isEmpty()) return;

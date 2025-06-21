@@ -70,7 +70,7 @@ void Gateway::ConvertProbeToGene(const QJsonValue& params)
     std::unordered_map<std::string, ExprPtrs> gene_probe_exprs;
     GeneExprHelper::Map(anno, probes, probe_exprs, gene_probe_exprs);
     if (gene_probe_exprs.empty()) {
-        throw Error::Get("131", "zero probes successfully annotated to genes");
+        throw Error::Get("131", tr("zero probes successfully annotated to genes"));
     }
 
     // 4. aggregate

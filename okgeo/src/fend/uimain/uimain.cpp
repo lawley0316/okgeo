@@ -7,15 +7,16 @@
 
 #include "src/middle/manager.h"
 #include "src/middle/signals.h"
+#include "src/middle/language.h"
 #include "src/fend/uicom/dialog.h"
 #include "src/fend/uiabout/uiabout.h"
 
 UiMain::UiMain(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::UiMain)
-    , loading_(new Loading(this)) {
+    , loading_(new Loading(this))
+    , language_(QLocale::system().language()) {
     ui->setupUi(this);
-    setWindowTitle("OkGEO");
 
     // logo
     ui->logo->setFixedSize(QSize(40, 40));
@@ -28,12 +29,7 @@ UiMain::UiMain(QWidget *parent)
     ui->probe_to_gene->SetDefaultTextColor(QColor("#666666"));
     ui->probe_to_gene->SetActiveTextColor(QColor("#455DD0"));
     ui->probe_to_gene->setIconSize(QSize(25, 25));
-    ui->probe_to_gene->setText(tr("Probe to Gene"));
     ui->probe_to_gene->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    ui->probe_to_gene->setToolTip(tr(
-        "Given a probe annotation file, the column containing gene symbols, "
-        "and the method for merging probes, convert probe expression to gene expression."
-    ));
     connect(ui->probe_to_gene, &QToolButton::clicked, this, &UiMain::ConvertProbeToGene);
 
     // phenotype
@@ -42,23 +38,19 @@ UiMain::UiMain(QWidget *parent)
     ui->phenotype->SetDefaultTextColor(QColor("#666666"));
     ui->phenotype->SetActiveTextColor(QColor("#455DD0"));
     ui->phenotype->setIconSize(QSize(25, 25));
-    ui->phenotype->setText(tr("Phenotype"));
     ui->phenotype->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    ui->phenotype->setToolTip(tr("Parse the phenotype data from the Series Matrix file."));
     connect(ui->phenotype, &QToolButton::clicked, this, &UiMain::ParsePhenotype);
 
-    // help
-    ui->help->SetDefaultIcon(QIcon(":/static/help-dark.png"));
-    ui->help->SetActiveIcon(QIcon(":/static/help-light.png"));
-    ui->help->setIconSize(QSize(25, 25));
-    ui->help->setToolTip(tr("Help"));
-    connect(ui->help, &QToolButton::clicked, this, &UiMain::Help);
+    // language
+    UpdateLanguageIcon();
+    ui->language->setIconSize(QSize(25, 25));
+    connect(ui->language, &QToolButton::clicked, this, &UiMain::ChangeLanguage);
+    connect(MANAGER->lang, &Language::LanguageChanged, this, &UiMain::RetranslateUi);
 
     // about
     ui->about->SetDefaultIcon(QIcon(":/static/about-dark.png"));
     ui->about->SetActiveIcon(QIcon(":/static/about-light.png"));
     ui->about->setIconSize(QSize(25, 25));
-    ui->about->setToolTip(tr("About"));
     connect(ui->about, &QToolButton::clicked, this, &UiMain::About);
 
     ui->probe_to_gene->Activate();
@@ -69,6 +61,7 @@ UiMain::UiMain(QWidget *parent)
     connect(MANAGER->sigs, &Signals::ProbeToGeneConverted, this, &UiMain::OpenResultFile);
     connect(MANAGER->sigs, &Signals::PhenotypeParsed, this, &UiMain::OpenResultFile);
     connect(MANAGER->sigs, &Signals::ErrorOccurred, this, &UiMain::ShowError);
+    RetranslateUi();
 }
 
 UiMain::~UiMain() {
@@ -95,8 +88,8 @@ void UiMain::OpenResultFile(const QString& path) {
             Dialog dialog(this);
             dialog.SetTitle(tr("Finished."));
             dialog.SetContent(tr("Do you want to open the result file?"));
-            dialog.AddOkButton();
-            dialog.AddCancelButton();
+            dialog.AddOkButton(tr("OK"));
+            dialog.AddCancelButton(tr("Cancel"));
             if (dialog.exec() == Dialog::Accepted) {
                 QDesktopServices::openUrl(QUrl::fromLocalFile(path));
             }
@@ -111,14 +104,31 @@ void UiMain::ShowError(int api, const QJsonValue& params, const QString& message
             Dialog dialog(this);
             dialog.SetTitle(tr("Error occurred."));
             dialog.SetContent(message);
-            dialog.AddOkButton();
+            dialog.AddOkButton(tr("OK"));
             dialog.exec();
         }
     );
 }
 
-void UiMain::Help() {
-    QDesktopServices::openUrl(QUrl("https://okgeo.lawley.cn"));
+void UiMain::ChangeLanguage() {
+    UpdateLanguage();
+    UpdateLanguageIcon();
+    MANAGER->lang->SetLanguage(language_);
+}
+
+void UiMain::RetranslateUi() {
+    ui->retranslateUi(this);
+    loading_->RetranslateUi();
+    ui->ui_probe_to_gene->RetranslateUi();
+    ui->ui_phenotype->RetranslateUi();
+    ui->probe_to_gene->setText(tr("Probe to Gene"));
+    ui->probe_to_gene->setToolTip(tr(
+        "Given a probe annotation file, the column containing gene symbols, "
+        "and the method for merging probes, convert probe expression to gene expression."
+    ));
+    ui->phenotype->setText(tr("Phenotype"));
+    ui->phenotype->setToolTip(tr("Parse the phenotype data from the Series Matrix file."));
+    ui->about->setToolTip(tr("About"));
 }
 
 void UiMain::About() {
@@ -129,4 +139,22 @@ void UiMain::About() {
 void UiMain::keyPressEvent(QKeyEvent* event) {
     if (event->key() == Qt::Key_Escape) return;
     QDialog::keyPressEvent(event);
+}
+
+void UiMain::UpdateLanguage() {
+    if (language_ == QLocale::Chinese) {
+        language_ = QLocale::English;
+    } else {
+        language_ = QLocale::Chinese;
+    }
+}
+
+void UiMain::UpdateLanguageIcon() {
+    if (language_ == QLocale::Chinese) {
+        ui->language->SetDefaultIcon(QIcon(":/static/en-dark.png"));
+        ui->language->SetActiveIcon(QIcon(":/static/en-light.png"));
+    } else {
+        ui->language->SetDefaultIcon(QIcon(":/static/zh_CN-dark.png"));
+        ui->language->SetActiveIcon(QIcon(":/static/zh_CN-light.png"));
+    }
 }

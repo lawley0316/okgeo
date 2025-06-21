@@ -55,7 +55,7 @@
         <item>
          <widget class="QLabel" name="title">
           <property name="text">
-           <string>title</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -75,7 +75,7 @@
         <item>
          <widget class="QToolButton" name="close">
           <property name="text">
-           <string>...</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -87,7 +87,7 @@
          <cursorShape>IBeamCursor</cursorShape>
         </property>
         <property name="text">
-         <string>content</string>
+         <string/>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

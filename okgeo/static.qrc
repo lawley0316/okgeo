@@ -20,5 +20,13 @@
         <file>static/down-2.png</file>
         <file>static/up-1.png</file>
         <file>static/up-2.png</file>
+        <file>static/translations/app_en.qm</file>
+        <file>static/translations/app_zh_CN.qm</file>
+        <file>static/zh_CN-dark.png</file>
+        <file>static/zh_CN-light.png</file>
+        <file>static/en-dark.png</file>
+        <file>static/en-light.png</file>
+        <file>static/translations/app_zh_CN.ts</file>
+        <file>static/translations/app_en.ts</file>
     </qresource>
 </RCC>
