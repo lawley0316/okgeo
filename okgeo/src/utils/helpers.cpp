@@ -5,6 +5,7 @@
 
 #include <fstream>
 #include <algorithm>
+#include <stdexcept>
 
 void ProbeExprHelper::Parse(const std::string& path, Ids& probes, Ids& samples, Exprs& probe_exprs)
 {

@@ -17,6 +17,7 @@ UiMain::UiMain(QWidget *parent)
     , loading_(new Loading(this))
     , language_(QLocale::system().language()) {
     ui->setupUi(this);
+    setWindowFlags(Qt::Window);
 
     // logo
     ui->logo->setFixedSize(QSize(40, 40));
