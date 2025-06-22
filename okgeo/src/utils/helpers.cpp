@@ -4,6 +4,7 @@
 #include "rapidcsv.h"
 
 #include <fstream>
+#include <sstream>
 #include <algorithm>
 #include <stdexcept>
 
@@ -114,14 +115,16 @@ void GeneExprHelper::Write(Ids& genes, Ids& samples, Exprs& gene_exprs, const st
 
     // write data
     for (std::size_t i=0; i<genes.size(); ++i) {
-        out << genes[i] << '\t';
+        std::ostringstream oss;
+        oss << genes[i] << '\t';
         for (std::size_t j=0; j<gene_exprs[i].size(); ++j) {
             if (j < gene_exprs[i].size() - 1) {
-                out << gene_exprs[i][j] << '\t';
+                oss << gene_exprs[i][j] << '\t';
             } else {
-                out << gene_exprs[i][j] << '\n';
+                oss << gene_exprs[i][j] << '\n';
             }
         }
+        out << oss.str();
     }
 }
 

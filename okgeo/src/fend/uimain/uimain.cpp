@@ -87,7 +87,7 @@ void UiMain::OpenResultFile(const QString& path) {
     QTimer::singleShot(
         0, this, [=]() {
             Dialog dialog(this);
-            dialog.SetTitle(tr("Finished."));
+            dialog.SetTitle(tr("Finished"));
             dialog.SetContent(tr("Do you want to open the result file?"));
             dialog.AddOkButton(tr("OK"));
             dialog.AddCancelButton(tr("Cancel"));
@@ -103,7 +103,7 @@ void UiMain::ShowError(int api, const QJsonValue& params, const QString& message
     QTimer::singleShot(
         0, this, [=]() {
             Dialog dialog(this);
-            dialog.SetTitle(tr("Error occurred."));
+            dialog.SetTitle(tr("Error occurred"));
             dialog.SetContent(message);
             dialog.AddOkButton(tr("OK"));
             dialog.exec();

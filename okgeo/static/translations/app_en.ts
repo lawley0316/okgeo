@@ -131,54 +131,54 @@
 <context>
     <name>UiMain</name>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="124"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="90"/>
+        <source>Finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="106"/>
+        <source>Error occurred</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="125"/>
         <source>Probe to Gene</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="125"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="126"/>
         <source>Given a probe annotation file, the column containing gene symbols, and the method for merging probes, convert probe expression to gene expression.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="129"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="130"/>
         <source>Phenotype</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="130"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="131"/>
         <source>Parse the phenotype data from the Series Matrix file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="131"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="132"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="89"/>
-        <source>Finished.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="90"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="91"/>
         <source>Do you want to open the result file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="91"/>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="107"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="92"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="108"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="92"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="93"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="105"/>
-        <source>Error occurred.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

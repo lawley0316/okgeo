@@ -151,22 +151,32 @@
 <context>
     <name>UiMain</name>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="124"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="90"/>
+        <source>Finished</source>
+        <translation>已完成</translation>
+    </message>
+    <message>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="106"/>
+        <source>Error occurred</source>
+        <translation>发生错误</translation>
+    </message>
+    <message>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="125"/>
         <source>Probe to Gene</source>
         <translation>探针转基因</translation>
     </message>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="125"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="126"/>
         <source>Given a probe annotation file, the column containing gene symbols, and the method for merging probes, convert probe expression to gene expression.</source>
         <translation>给定一个探针注释文件，（探针注释文件中）包含基因的列和合并探针的方法，把探针表达转换为基因表达。</translation>
     </message>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="129"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="130"/>
         <source>Phenotype</source>
         <translation>表型</translation>
     </message>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="130"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="131"/>
         <source>Parse the phenotype data from the Series Matrix file.</source>
         <translation>从Series Matrix文件中解析表型数据。</translation>
     </message>
@@ -175,35 +185,33 @@
         <translation type="vanished">帮助文档</translation>
     </message>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="131"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="132"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="89"/>
         <source>Finished.</source>
-        <translation>已完成。</translation>
+        <translation type="vanished">已完成。</translation>
     </message>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="90"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="91"/>
         <source>Do you want to open the result file?</source>
         <translation>需要打开结果文件吗？</translation>
     </message>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="91"/>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="107"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="92"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="108"/>
         <source>OK</source>
         <translation>好的</translation>
     </message>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="92"/>
+        <location filename="../../src/fend/uimain/uimain.cpp" line="93"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../../src/fend/uimain/uimain.cpp" line="105"/>
         <source>Error occurred.</source>
-        <translation>发生错误。</translation>
+        <translation type="vanished">发生错误。</translation>
     </message>
     <message>
         <location filename="../../src/fend/uimain/uimain.ui" line="14"/>

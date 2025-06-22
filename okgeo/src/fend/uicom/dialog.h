@@ -20,9 +20,6 @@ public:
     QPushButton* AddOkButton(const QString& text = "Ok");
     QPushButton* AddCancelButton(const QString& text = "Cancel");
 
-protected:
-    bool eventFilter(QObject* watched, QEvent* event) override;
-
 private:
     Ui::Dialog *ui;
 };

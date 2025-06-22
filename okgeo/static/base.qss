@@ -215,23 +215,8 @@ Loading > QFrame > #title {
 
 
 /***************************************************************** Dialog Start ***************************************************************/
-Dialog > QFrame {
-    border: none;
-    border-radius: 6px;
+Dialog {
+    color: #111111;
     background-color: #FFFFFF;
-}
-
-Dialog > QFrame > #title {
-    color: #333333;
-    font-size: 16px;
-}
-
-Dialog > QFrame > #close {
-    border: none;
-}
-
-Dialog > QFrame > #content {
-    font-size: 14px;
-    color: #666666;
 }
 /****************************************************************** Dialog End ****************************************************************/
