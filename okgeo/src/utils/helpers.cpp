@@ -102,6 +102,7 @@ void GeneExprHelper::Write(Ids& genes, Ids& samples, Exprs& gene_exprs, const st
 {
     std::ofstream out(outfile);
     if (! out) return;
+    out.precision(15);
 
     // write column names
     out << "Gene\t";
@@ -115,16 +116,14 @@ void GeneExprHelper::Write(Ids& genes, Ids& samples, Exprs& gene_exprs, const st
 
     // write data
     for (std::size_t i=0; i<genes.size(); ++i) {
-        std::ostringstream oss;
-        oss << genes[i] << '\t';
+        out << genes[i] << '\t';
         for (std::size_t j=0; j<gene_exprs[i].size(); ++j) {
             if (j < gene_exprs[i].size() - 1) {
-                oss << gene_exprs[i][j] << '\t';
+                out << gene_exprs[i][j] << '\t';
             } else {
-                oss << gene_exprs[i][j] << '\n';
+                out << gene_exprs[i][j] << '\n';
             }
         }
-        out << oss.str();
     }
 }
 
