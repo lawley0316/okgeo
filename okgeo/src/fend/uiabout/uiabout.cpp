@@ -18,7 +18,7 @@ UiAbout::~UiAbout() {
 }
 
 void UiAbout::OpenDocs() {
-    QDesktopServices::openUrl(QUrl("https://okgeo.lawley.cn"));
+    QDesktopServices::openUrl(QUrl("https://geo.oakes.cn"));
 }
 
 bool UiAbout::eventFilter(QObject* watched, QEvent* event) {

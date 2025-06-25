@@ -109,17 +109,17 @@
     </message>
     <message>
         <location filename="../../src/fend/uiabout/uiabout.ui" line="85"/>
-        <source>E-mail: lawley0316@gmail.com</source>
+        <source>E-mail: oakesli@outlook.com</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/fend/uiabout/uiabout.ui" line="101"/>
-        <source>Docmentations: https://okgeo.lawley.cn</source>
+        <source>Docmentations: https://geo.oakes.cn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/fend/uiabout/uiabout.ui" line="117"/>
-        <source>Copyright © 2025 lawley0316. All rights reserved.</source>
+        <source>Copyright © 2025 Oakes Li. All rights reserved.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

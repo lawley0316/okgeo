@@ -124,23 +124,31 @@
         <translation></translation>
     </message>
     <message>
+        <location filename="../../src/fend/uiabout/uiabout.ui" line="85"/>
+        <source>E-mail: oakesli@outlook.com</source>
+        <translation>联系邮箱：oakesli@outlook.com</translation>
+    </message>
+    <message>
+        <location filename="../../src/fend/uiabout/uiabout.ui" line="101"/>
+        <source>Docmentations: https://geo.oakes.cn</source>
+        <translation>查看文档：https://geo.oakes.cn</translation>
+    </message>
+    <message>
+        <location filename="../../src/fend/uiabout/uiabout.ui" line="117"/>
+        <source>Copyright © 2025 Oakes Li. All rights reserved.</source>
+        <translation>Copyright © 2025 Oakes Li. All rights reserved.</translation>
+    </message>
+    <message>
         <source> E-mail: lawley0316@gmail.com</source>
         <translation type="vanished">邮箱: lawley0316@gmail.com</translation>
     </message>
     <message>
-        <location filename="../../src/fend/uiabout/uiabout.ui" line="85"/>
         <source>E-mail: lawley0316@gmail.com</source>
-        <translation>邮箱：lawley0316@gmail.com</translation>
+        <translation type="vanished">邮箱：lawley0316@gmail.com</translation>
     </message>
     <message>
-        <location filename="../../src/fend/uiabout/uiabout.ui" line="101"/>
         <source>Docmentations: https://okgeo.lawley.cn</source>
-        <translation>文档：https://okgeo.lawley.cn</translation>
-    </message>
-    <message>
-        <location filename="../../src/fend/uiabout/uiabout.ui" line="117"/>
-        <source>Copyright © 2025 lawley0316. All rights reserved.</source>
-        <translation></translation>
+        <translation type="vanished">文档：https://okgeo.lawley.cn</translation>
     </message>
     <message>
         <location filename="../../src/fend/uiabout/uiabout.ui" line="14"/>
