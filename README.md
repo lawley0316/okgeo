@@ -1,4 +1,4 @@
-# OkGEO: A GUI tool that helps you analyze GEO data faster
+# OkGEO: A GUI tool that helps you analyze GEO data easier
 
 ## Features
 
